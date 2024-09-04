@@ -1,16 +1,32 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { addEmployeeAction } from "../redux/action";
-import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import API from "../proxy/API"
 
-const AddEmployee = () => {
+const UpdateEmployee = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+
   const [state, setState] = useState({
+    id: id,
     firstname: "",
     lastname: "",
     email: "",
   });
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+
+  useEffect(() => {
+    API.getEmployeeById(id).then((res) => {
+      let employee = res.data;
+      setState({
+        id: employee.id,
+        firstname: employee.firstname,
+        lastname: employee.lastname,
+        email: employee.email,
+      });
+    });
+  }, [id]); // Cập nhật dependencies của useEffect để bao gồm 'id'
+  
 
   const cancel = () => {
     navigate("/");
@@ -42,7 +58,7 @@ const AddEmployee = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await dispatch(addEmployeeAction(state));
+    await API.updateEmployee(state.id, state);
     setState({
       firstname: "",
       lastname: "",
@@ -64,6 +80,7 @@ const AddEmployee = () => {
                 <label htmlFor="firstname">First Name</label>
                 <input
                   onChange={handleFirstname}
+                  value={state.firstname}
                   id="firstname"
                   type="text"
                   className="form-control"
@@ -74,6 +91,7 @@ const AddEmployee = () => {
                 <label htmlFor="lastname">Last Name</label>
                 <input
                   onChange={handleLastname}
+                  value={state.lastname}
                   id="lastname"
                   type="text"
                   className="form-control"
@@ -84,6 +102,7 @@ const AddEmployee = () => {
                 <label htmlFor="email">Email</label>
                 <input
                   onChange={handleEmail}
+                  value={state.email}
                   id="email"
                   type="email"
                   className="form-control"
@@ -108,4 +127,4 @@ const AddEmployee = () => {
   );
 };
 
-export default AddEmployee;
+export default UpdateEmployee;

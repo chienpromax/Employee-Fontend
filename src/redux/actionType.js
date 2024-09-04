@@ -1,3 +1,4 @@
 export const employeeType = {
-    GET: 'coding-teckniques/employee/get'
+    GET: 'chienpromax/employee/get',
+    POST: 'chienpromax/employee/post'
 }

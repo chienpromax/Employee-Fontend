@@ -16,6 +16,9 @@ const EmployeeList = () => {
   function addUser (){
     navigate("/add-employee");
   }
+  function editEmployee (id){
+    navigate(`/employee/${id}`)
+  }
 
   return (
     <div className="container mt-4">
@@ -42,6 +45,9 @@ const EmployeeList = () => {
                     <td>{employee.firstname}</td>
                     <td>{employee.lastname}</td>
                     <td>{employee.email}</td>
+                    <td>
+                      <button onClick={() => editEmployee(employee.id)} className="btn btn-info">Edit</button>
+                    </td>
                   </tr>
                 ))
               ) : (
