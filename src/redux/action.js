@@ -32,3 +32,16 @@ export function addEmployeeAction(employee) {
         dispatch(addEmployee(newEmployee.data));
     })
 }
+
+export function deleteEmployee(id) {
+    return {
+        type: actionType.employeeType.DELETE,
+        payload: id
+    }
+}
+
+export function deleteEmployeeAction(id) {
+    return dispatch => API.deleteEmployeeById(id)
+    .then(dispatch(deleteEmployee(id)));
+
+}

@@ -18,6 +18,10 @@ class API {
   getEmployeeById(id) {
     return axios.get(`${BASE_URL}/employee/${id}`);
   }
+
+  deleteEmployeeById(id) {
+    return axios.delete(`${BASE_URL}/employee/${id}`);
+  }
 }
 
 const apiInstance = new API();

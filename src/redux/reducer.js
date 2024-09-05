@@ -1,22 +1,30 @@
 import initialState from "./initialState";
 import { combineReducers } from "redux";
-import * as actionTypes from './actionType';
+import * as actionTypes from "./actionType";
 
-export default function employeeReducer (state = initialState, action) {
+export default function employeeReducer(state = initialState, action) {
   switch (action.type) {
-
     case actionTypes.employeeType.GET: {
       return {
         ...state,
         employees: action.payload,
-      }
+      };
     }
 
     case actionTypes.employeeType.POST: {
       return {
         ...state,
-        employees: [...state.employee, action.payload]
-      }
+        employees: [...state.employees, action.payload],
+      };
+    }
+
+    case actionTypes.employeeType.DELETE: {
+      return {
+        ...state,
+        employees: state.employees.filter(
+          (employee) => employee.id !== action.payload
+        ),
+      };
     }
 
     default:
@@ -24,6 +32,6 @@ export default function employeeReducer (state = initialState, action) {
   }
 }
 
-export const rootRecucer = combineReducers({
+export const rootReducer = combineReducers({
   employee: employeeReducer,
 });

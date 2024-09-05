@@ -25,7 +25,7 @@ const UpdateEmployee = () => {
         email: employee.email,
       });
     });
-  }, [id]); // Cập nhật dependencies của useEffect để bao gồm 'id'
+  }, [id]);
   
 
   const cancel = () => {

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getEmployeeAction } from "../redux/action";
 import { useNavigate } from "react-router-dom";
+import { deleteEmployeeAction } from "../redux/action";
 
 const EmployeeList = () => {
   const employees = useSelector((state) => state.employees || []);
@@ -15,6 +16,9 @@ const EmployeeList = () => {
 
   function addUser (){
     navigate("/add-employee");
+  }
+  function deleteEmployee(id){
+    dispatch(deleteEmployeeAction(id))
   }
   function editEmployee (id){
     navigate(`/employee/${id}`)
@@ -47,6 +51,7 @@ const EmployeeList = () => {
                     <td>{employee.email}</td>
                     <td>
                       <button onClick={() => editEmployee(employee.id)} className="btn btn-info">Edit</button>
+                      <button onClick={() => deleteEmployee(employee.id)} className="ms-2 btn btn-danger">Delete</button>
                     </td>
                   </tr>
                 ))
